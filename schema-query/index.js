@@ -1,12 +1,48 @@
 const { ApolloServer, gql } =  require('apollo-server');
+const users = [{
+    id: 1,
+    name: "Aaaaa Aaaaaa",
+    email: "aaa@aaa.com",
+    age: 29,
+},{
+    id: 2,
+    name: "Bbbbbb Bbbbb",
+    email: "bbb@bbb.com",
+    age: 31,
+},{
+    id: 3,
+    name: "Cccc Ccccc",
+    email: "ccc@ccc.com",
+    age: 32,
+},
+]
+const roles = [
+    {
+        id: 1,
+        name: "user",
+    },    {
+        id: 2,
+        name: "admin",
+    },
+
+]
 const typeDefs = gql`
     scalar Date
     # entry points
+    type Role{
+        id: ID
+        name: String
+    }
     type Query {
         hello: String
         dateNow: Date
         loggedUser: User
         featuredProduct: Product
+        numbersLotery: [Int!]!
+        users: [User]
+        user(id: ID): User
+        roles: [Role]
+        role(id: ID): Role
     }
     type Product{
         id: ID
@@ -62,7 +98,25 @@ const resolvers = {
                price: 49999.99,
                discount: 0.15,
            }
-       }
+       },
+       numbersLotery() {
+           const crescente = (a, b) => a - b
+           return Array(6).fill(0).map(() => parseInt(Math.random() * 60 + 1)).sort(crescente)
+       },
+       users() {
+           return users
+       },
+       user( _ , args) {
+            const selected = users.filter(u => u.id == args.id)
+            return selected ? selected[0] : null
+        },
+        roles() {
+            return roles
+        },
+        role( _ , args) {
+            const selected = roles.filter(u => u.id == args.id)
+            return selected ? selected[0] : null
+        }
         
     }
 }
