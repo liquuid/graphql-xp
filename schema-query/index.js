@@ -6,8 +6,15 @@ const typeDefs = gql`
         hello: String
         dateNow: Date
         loggedUser: User
+        featuredProduct: Product
     }
-
+    type Product{
+        id: ID
+        name: String!
+        price: Float!
+        discount: Float
+        final_price: Float
+    }
     type User{
         id: ID
         name: String!
@@ -21,6 +28,15 @@ const resolvers = {
     User: {
         wage(user) {
             return user.wage_usd
+        }
+    },
+    Product: {
+        final_price(product){
+            if(product.discount) {
+                return product.price * (1 - product.discount)
+            } else {
+                return product.price
+            }
         }
     },
     Query: {
@@ -38,6 +54,13 @@ const resolvers = {
                age: "66",
                wage_usd: "666.66",
                vip: true
+           }
+       },
+       featuredProduct(){
+           return {
+               name: "Computer",
+               price: 49999.99,
+               discount: 0.15,
            }
        }
         
