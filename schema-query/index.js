@@ -4,16 +4,19 @@ const users = [{
     name: "Aaaaa Aaaaaa",
     email: "aaa@aaa.com",
     age: 29,
+    role_id: 1,
 },{
     id: 2,
     name: "Bbbbbb Bbbbb",
     email: "bbb@bbb.com",
     age: 31,
+    role_id: 1,
 },{
     id: 3,
     name: "Cccc Ccccc",
     email: "ccc@ccc.com",
     age: 32,
+    role_id: 2,
 },
 ]
 const roles = [
@@ -58,12 +61,18 @@ const typeDefs = gql`
         age: Int
         wage: Float
         vip: Boolean
+        role: Role
     }
 `
 const resolvers = {
     User: {
         wage(user) {
             return user.wage_usd
+        },
+        role(user){
+            const sels = roles
+                .filter(p => p.id === user.role_id)
+                return sels ? sels[0] : null
         }
     },
     Product: {
@@ -117,7 +126,7 @@ const resolvers = {
             const selected = roles.filter(u => u.id == args.id)
             return selected ? selected[0] : null
         }
-        
+
     }
 }
 const server = new ApolloServer({
