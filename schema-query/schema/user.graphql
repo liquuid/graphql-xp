@@ -6,6 +6,12 @@ type User{
     wage: Float
     vip: Boolean
     role: Role
+    status: UserStatus
+}
+enum UserStatus {
+    ACTIVE,
+    INACTIVE,
+    BLOCKED
 }
 type Role{
     id: ID
