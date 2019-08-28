@@ -3,15 +3,15 @@ const { users, nextID } =
 
 module.exports = {
     // { name, email, age })
-    newUser(_, args) {
+    newUser(_, { data } ) {
         const emailExists = users
-            .some(u => u.email === args.email)
+            .some(u => u.email === data.email)
         if(emailExists){
             throw new Error('Email already on DB')
         }
         const novo = {
             id: nextID(),
-            ...args,
+            ...data,
             role_id: 1,
             status: 'ACTIVE'
         }
