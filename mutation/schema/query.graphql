@@ -1,0 +1,11 @@
+type Query {
+    hello: String
+    dateNow: Date
+    loggedUser: User
+    featuredProduct: Product
+    numbersLotery: [Int!]!
+    users: [User]
+    user(id: ID): User
+    roles: [Role]
+    role(id: ID): Role
+}
