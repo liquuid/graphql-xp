@@ -41,15 +41,16 @@ module.exports = {
         return excluded ? excluded[0] : null
     },
 
-    alterUser(_, args){
-        const i = users
-            .findIndex(u => u.id === args.id )
+    alterUser(_, { filter, data} ){
+        const i = userIndex(filter)
+
         if (i < 0 ) return null
-        const user = {
-            ...users[i],
-            ...args
+        users[i].name = data.name
+        users[i].email = data.email
+        if(data.age){
+            users[i].age = data.age
         }
-        users.splice(i, 1, user)
-        return user
+
+        return users[i]
     }
 }

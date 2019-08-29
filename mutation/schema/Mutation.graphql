@@ -8,10 +8,8 @@ type Mutation{
     ): User
 
     alterUser(
-        name: String,
-        id: Int,
-        email: String,
-        age: Int
+        filter: UserFilter!
+        data: UserInput!
     ): User
 
 }
