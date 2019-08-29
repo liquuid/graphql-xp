@@ -18,6 +18,15 @@ type Role{
     name: String
 }
 
+input RoleInput{
+    name: String
+}
+
+input RoleFilter{
+    id: ID
+    name: String
+}
+
 input UserInput {
     name: String
     email: String

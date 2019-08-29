@@ -12,4 +12,18 @@ type Mutation{
         data: UserInput!
     ): User
 
+    newRole(
+        data: RoleInput!
+    ): Role!
+
+    removeRole(
+        filter: RoleFilter!
+    ): Role
+
+    alterRole(
+        filter: RoleFilter!
+        data: RoleInput!
+    ): Role
+
+
 }
