@@ -1,5 +1,5 @@
 const { users, nextID } =
-    require('../data/db')
+    require('../../data/db')
 
 function userIndex(filter){
     if(!filter) return -1
